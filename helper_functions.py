@@ -291,6 +291,52 @@ def download_file(dir_name, unzip_data = False, delete_zip_data = False):
         print("you already delete this file, or you don't have this file")
   
 
+
+# check the file structure
+import os
+def list_directory_tree_structure(startpath, show_file = False):
+  """
+  List directory tree structure, like list : 
+  10_food_classes_10_percent/
+    test/
+        chicken_wings/
+        fried_rice/
+        sushi/
+        steak/
+        ramen/
+        chicken_curry/
+        grilled_salmon/
+        hamburger/
+        ice_cream/
+        pizza/
+    train/
+        chicken_wings/
+        fried_rice/
+        sushi/
+        steak/
+        ramen/
+        chicken_curry/
+        grilled_salmon/
+        hamburger/
+        ice_cream/
+        pizza/
+  
+  you can also list the file name.
+
+  Args:
+    startpath (str): a filepath you want to list, such as "10_food_classes_10_percent".
+    show_file (boolean): show the all file.
+  """
+  for root, dirs, files in os.walk(startpath):
+      level = root.replace(startpath, '').count(os.sep)
+      indent = ' ' * 4 * (level)
+      print('{}{}/'.format(indent, os.path.basename(root)))
+      subindent = ' ' * 4 * (level + 1)
+      if show_file == True:
+          for f in files:
+              print('{}{}'.format(subindent, f))
+
+
   
 # Create function to unzip a zipfile into current working directory 
 # (since we're going to be downloading and unzipping a few files)
