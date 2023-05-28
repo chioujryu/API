@@ -35,7 +35,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 
 
-# Our function needs a different name to sklearn's plot_confusion_matrix
+# We need to make some changes to our make_confusion_matrix function to ensure the x-labels print vertically
 def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_size=15, norm=False, savefig=False): 
   """Makes a labelled confusion matrix comparing predictions and ground truth labels.
 
@@ -89,6 +89,10 @@ def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_s
   # Make x-axis labels appear on bottom
   ax.xaxis.set_label_position("bottom")
   ax.xaxis.tick_bottom()
+
+  ### Changed (plot x-labels vertically) ###
+  plt.xticks(rotation=70, fontsize=text_size)
+  plt.yticks(fontsize=text_size)
 
   # Set the threshold for different colors
   threshold = (cm.max() + cm.min()) / 2.
@@ -239,7 +243,7 @@ import platform
 import wget
 import requests
 import zipfile
-def download_file(dir_name, unzip_data = False, delete_zip_data = False):
+def download_file(dir_name, download_location_dir = "" ,unzip_data = False, delete_zip_data = False):
   """
   Download the file and Unzips filename into the current working directory.
   You also can delete your zip file.
